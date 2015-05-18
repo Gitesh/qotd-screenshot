@@ -60,6 +60,8 @@ convert -size 600x240 \
 				-fill $TWITTER_HANDLE_COLOUR -annotate 0 '\n\n\n\@QOTD_17' \
 				-bordercolor black -border 10x0 \
 	-distort Perspective '0,0 0,0   213,0 213,0   213,160 213,140   0,160 0,160' \
+	-trim \
+	-bordercolor black -border 40x20 \
   output.gif
 
 
