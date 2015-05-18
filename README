@@ -1,3 +1,17 @@
-Currently a WIP - bash script to screenshot accompanying quote and author to attaching to a tweet.
+Bash script to create a screenshot from the quote of the day, ready to attach to the tweet.
+
+Dependencies:
+       Imagemagick (see www.imagemagick.org) is used to create the screenshot and manipulate the image.
+
+
+Useage:
+       bash qotd_screenshot.sh "<AUTHOR_NAME>" "<QUOTE_TEXT>"
+
+
+Example: 
+
+       bash qotd_screenshot.sh "Douglas Adams" "Thanks for all the fish"
+
+
 
 @gitesh
