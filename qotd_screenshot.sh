@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [ -z "$1" "$2"]; then
-	echo usage: $0 "<AUTHOR NAME>" "<QUOTE>" example: "\"Douglas Addams\"" "\"Thanks for all the fish\"",
+	echo usage: $0 "<AUTHOR NAME>" "<QUOTE>" example: "\"Douglas Adams\"" "\"So long and thanks for all the fish\"",
         exit
 fi
 
