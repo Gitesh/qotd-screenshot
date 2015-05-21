@@ -3,7 +3,7 @@
 ----------------------------------------
 - Reads the Google Drive hosted spreadsheet table
 - Selects a random quote (algorithm using last publish date and usage counter TBC)
-- Passess the Author name and their Quote to a Bash script which in turn launches ImageMagick to create a text screenshot
+- Passes the Author name and their Quote to a Bash script which in turn launches ImageMagick to create a text screenshot
 
 
 
