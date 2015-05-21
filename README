@@ -4,7 +4,7 @@
 
 
 ----------------------------------------
-1. ssheet.py
+#1. ssheet.py#
 ----------------------------------------
 - Reads the Google Drive hosted spreadsheet table
 - Selects a random quote (algorithm using last publish date and usage counter TBC)
@@ -13,7 +13,7 @@
 
 
 ----------------------------------------
-2. qotd_screenshot.sh
+#2. qotd_screenshot.sh#
 ----------------------------------------
 
 Bash script to create a screenshot from the quote of the day, ready to attach to the tweet.
@@ -34,7 +34,7 @@ Example:
 
 
 ----------------------------------------
-3. Spreadsheet hosted on Google Drive
+#3. Spreadsheet hosted on Google Drive#
 ----------------------------------------
 
 
