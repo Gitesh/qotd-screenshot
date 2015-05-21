@@ -1,3 +1,6 @@
+![ScreenShot](/https://github.com/Gitesh/qotd-screenshot/blob/master/output.gif?raw=true "screenshot of a quote")
+
+
 ----------------------------------------
 1. ssheet.py
 ----------------------------------------
@@ -24,6 +27,7 @@ Useage:
 Example: 
 
        bash qotd_screenshot.sh "Douglas Adams" "Thanks for all the fish"
+
 
 
 
