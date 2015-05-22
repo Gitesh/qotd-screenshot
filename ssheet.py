@@ -39,27 +39,28 @@ qotdRandomID = randint(2,qotdQotdIDLength)
 
 strQotdRandomID = str(qotdRandomID)
 
-print wks.acell('a'+strQotdRandomID)  #ID
-print wks.acell('b'+strQotdRandomID)  #Author
-print wks.acell('c'+strQotdRandomID)  #Quote
-print wks.acell('d'+strQotdRandomID)  #Hashtag
-print wks.acell('e'+strQotdRandomID)  #Usage counter
-print wks.acell('f'+strQotdRandomID)  #Last used date
+print wks.acell('a'+strQotdRandomID)  #TimeStamp
+print wks.acell('b'+strQotdRandomID)  #ID
+print wks.acell('c'+strQotdRandomID)  #Author
+print wks.acell('d'+strQotdRandomID)  #Quote
+print wks.acell('e'+strQotdRandomID)  #Hashtag
+print wks.acell('f'+strQotdRandomID)  #Usage counter
+print wks.acell('g'+strQotdRandomID)  #Last used date
 
 
 #Write code to increase the counter for the text
 
-qotdLastUsedCounter = int(wks.acell('e'+strQotdRandomID).value)
+qotdLastUsedCounter = int(wks.acell('f'+strQotdRandomID).value)
 
 qotdLastUsedCounter += 1
 
 #qotdLastUsedCounterNow += int(qotdLastUsedCounter)
 
 #Update usage counter and date
-wks.update_acell('e'+strQotdRandomID,qotdLastUsedCounter) #update counter
+wks.update_acell('f'+strQotdRandomID,qotdLastUsedCounter) #update counter
 
 qotdLastUsedDateNow = wks.updated
-wks.update_acell('f'+strQotdRandomID,qotdLastUsedDateNow) #update date
+wks.update_acell('g'+strQotdRandomID,qotdLastUsedDateNow) #update date
 
 
 
@@ -70,8 +71,8 @@ wks.update_acell('f'+strQotdRandomID,qotdLastUsedDateNow) #update date
 qotdShell = "bash"
 qotdImageScript = "qotd_screenshot.sh"
 
-qotdAuthor = str(wks.acell('b'+strQotdRandomID).value)
-qotdQuote = str(wks.acell('c'+strQotdRandomID).value)
+qotdAuthor = str(wks.acell('c'+strQotdRandomID).value)
+qotdQuote = str(wks.acell('d'+strQotdRandomID).value)
 
 
 subprocess.call([qotdShell,qotdImageScript,qotdAuthor,qotdQuote])
