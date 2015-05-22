@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ -z "$1" "$2"]; then
+if [ -z "$1" ]; then
 	echo usage: $0 "<AUTHOR NAME>" "<QUOTE>" example: "\"Douglas Adams\"" "\"So long and thanks for all the fish\"",
         exit
 fi
@@ -42,6 +42,7 @@ TWITTER_HANDLE_COLOUR=#C71959
 #echo $AUTHOR
 #echo $1
 
+#Twitter reccomended 1024x512 which seems big, need to do some more research
 
 convert -size 600x240 \
 	-background black \

@@ -46,6 +46,7 @@ print wks.acell('d'+strQotdRandomID)  #Quote
 print wks.acell('e'+strQotdRandomID)  #Hashtag
 print wks.acell('f'+strQotdRandomID)  #Usage counter
 print wks.acell('g'+strQotdRandomID)  #Last used date
+print wks.acell('h'+strQotdRandomID)  #Validated status
 
 
 #Write code to increase the counter for the text
