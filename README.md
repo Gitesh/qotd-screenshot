@@ -2,7 +2,7 @@
 
 
 ----------------------------------------
-#1. ssheet.py#
+###1. ssheet.py
 ----------------------------------------
 - Reads the Google Drive hosted spreadsheet table
 - Selects a random quote (algorithm using last publish date and usage counter TBC)
@@ -11,7 +11,7 @@
 
 
 ----------------------------------------
-#2. qotd_screenshot.sh#
+####2. qotd_screenshot.sh#
 ----------------------------------------
 
 Bash script to create a screenshot from the quote of the day, ready to attach to the tweet.
@@ -21,10 +21,10 @@ Dependencies:
 
 
 Useage:
-       bash qotd_screenshot.sh "\<AUTHOR_NAME\>" "\<QUOTE_TEXT\>"
+       bash qotd_screenshot.sh "AUTHOR_NAME" "QUOTE_TEXT"
 
 
-Example: 
+Example:
 
        bash qotd_screenshot.sh "Douglas Adams" "Thanks for all the fish"
 
@@ -32,7 +32,7 @@ Example:
 
 
 ----------------------------------------
-#3. Spreadsheet hosted on Google Drive#
+###3. Spreadsheet hosted on Google Drive
 ----------------------------------------
 
 
@@ -53,18 +53,18 @@ Example:
 | 12/06/2015 16:20:32 | 14 | Oliver Wendell Holmes   | A child's education should begin at least 100 years before he is born.                                                 | #education #poverty        | 3             | 2015-05-21T00:34:06.275Z | 1                |
 | 13/06/2015 16:20:32 | 15 | William James           | A great many people think they are thinking when they are merely rearranging their prejudices.                         | #pmChat #stakeholders      | 0             | 0                        | 1                |
 
-AppsScript added to spreadsheet to auto populate ID, Usage Counter, Last Published Date,  Validated Status rows with default values. Triggered on form submission (https://docs.google.com/forms/d/1eYcmD0qVtt4_qMLKH2_Hmh7Jp7JiQzhfQTTHWtQI5Ns/viewform)
+You'll need to add an AppsScript to spreadsheet to auto populate ID, Usage Counter, Last Published Date,  Validated Status rows with default values. The code should be triggered on form submission.
 
     function onFormSubmit(e) {
-    
+
            var sheet = SpreadsheetApp.getActiveSheet();
            var row =  SpreadsheetApp.getActiveSheet().getLastRow();
-           
+
            sheet.getRange(row,2).setValue(row);
            sheet.getRange(row,6).setValue(0);
            sheet.getRange(row,7).setValue(0);
            sheet.getRange(row,8).setValue(0);
-           
+
     }
 
 
