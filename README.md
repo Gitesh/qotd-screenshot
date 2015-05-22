@@ -21,7 +21,7 @@ Dependencies:
 
 
 Useage:
-       bash qotd_screenshot.sh "<AUTHOR_NAME>" "<QUOTE_TEXT>"
+       bash qotd_screenshot.sh "\<AUTHOR_NAME\>" "\<QUOTE_TEXT\>"
 
 
 Example: 
