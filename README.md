@@ -53,6 +53,20 @@ Example:
 | 12/06/2015 16:20:32 | 14 | Oliver Wendell Holmes   | A child's education should begin at least 100 years before he is born.                                                 | #education #poverty        | 3             | 2015-05-21T00:34:06.275Z | 1                |
 | 13/06/2015 16:20:32 | 15 | William James           | A great many people think they are thinking when they are merely rearranging their prejudices.                         | #pmChat #stakeholders      | 0             | 0                        | 1                |
 
+AppsScript added to spreadsheet to auto populate ID, Usage Counter, Last Published Date,  Validated Status rows with default values. Triggered on form submission (https://docs.google.com/forms/d/1eYcmD0qVtt4_qMLKH2_Hmh7Jp7JiQzhfQTTHWtQI5Ns/viewform)
+
+    function onFormSubmit(e) {
+    
+           var sheet = SpreadsheetApp.getActiveSheet();
+           var row =  SpreadsheetApp.getActiveSheet().getLastRow();
+           
+           sheet.getRange(row,2).setValue(row);
+           sheet.getRange(row,6).setValue(0);
+           sheet.getRange(row,7).setValue(0);
+           sheet.getRange(row,8).setValue(0);
+           
+    }
+
 
 
 @gitesh
