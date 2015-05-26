@@ -80,7 +80,12 @@ subprocess.call([qotdShell,qotdImageScript,qotdAuthor,qotdQuote])
 
 
 #TODO
-# 2015-05-20 Replace Random quote code with an algorithm using 'qotd_usage_counter' and 'qotd_last_used_date' to determine which qoute to use next
-# 2015-05-20 Fix: qotd_screenshot.sh: line 3: [: missing `]'  in bash script
-# 2015-05-20 Add tweet interface
-# 2015-05-20 Create form to add new quotes
+# [ ] 2015-05-20 Replace Random quote code with an algorithm using 'qotd_usage_counter' and 'qotd_last_used_date' to determine which qoute to use next
+# [x] 2015-05-20 Fix: qotd_screenshot.sh: line 3: [: missing `]'  in bash script
+# [ ] 2015-05-20 Add tweet interface
+# [x] 2015-05-20 Create form to add new quotes
+# [ ] 2015-05-23 Import Twython and add function to take tweet text and gif and upload. Need to edit bash script so it doesn't display picture
+# [ ] 2015-05-24 Change font in bash imagemagick script
+# [ ] 2015-05-24 Add hashtags to bash imagemagick script
+# [ ] 2015-05-24 Randomise viginette and tilt to predefined styles in bash imagemagick script
+# [ ] 2015-05-24 Code to truncate longer quotes taking into acount hashtags
