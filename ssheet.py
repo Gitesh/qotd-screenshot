@@ -1,8 +1,23 @@
+#!/usr/bin/python
+
 import json
 import gspread
 import subprocess
 from random import randint
 from oauth2client.client import SignedJwtAssertionCredentials
+from twython import Twython
+from token917354 import *
+
+
+def tweetme(text, hashtag, image):
+
+    twitter = Twython(APP_KEY, APP_SECRET, OAUTH_TOKEN, OAUTH_TOKEN_SECRET)
+
+    text = str(text)+str(hashtag)
+    photo = open(image, 'rb')
+
+    twitter.update_status_with_media(status=text, media=photo)
+    return
 
 
 
@@ -49,6 +64,12 @@ print wks.acell('g'+strQotdRandomID)  #Last used date
 print wks.acell('h'+strQotdRandomID)  #Validated status
 
 
+#Get the length of the hashtag below and truncate the quote length for the text ONLY (but not image)
+qotdHashtag = wks.acell('e'+strQotdRandomID).value #Quote
+
+
+
+
 #Write code to increase the counter for the text
 
 qotdLastUsedCounter = int(wks.acell('f'+strQotdRandomID).value)
@@ -77,6 +98,8 @@ qotdQuote = str(wks.acell('d'+strQotdRandomID).value)
 
 
 subprocess.call([qotdShell,qotdImageScript,qotdAuthor,qotdQuote])
+
+tweetme(qotdQuote, qotdHashtag, "output.gif")
 
 
 #TODO

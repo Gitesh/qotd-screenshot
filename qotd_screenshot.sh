@@ -64,6 +64,7 @@ convert -size 600x240 \
   -vignette '1000x60,0.5,0.1,1.5' \
 	-trim \
 	-bordercolor black -border 40x20 \
+	- size 600x240 \
   output.gif
 
 
