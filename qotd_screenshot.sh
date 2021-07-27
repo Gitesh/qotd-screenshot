@@ -44,7 +44,8 @@ TWITTER_HANDLE_COLOUR=#C71959
 
 #Twitter reccomended 1024x512 which seems big, need to do some more research
 
-convert -size 600x240 \
+#convert -size 600x240 \
+convert -size 100x25 xc:white -size 100x100 \
 	-background black \
         -font $QUOTE_FONT \
         -fill $QUOTE_COLOUR \
@@ -64,13 +65,13 @@ convert -size 600x240 \
   -vignette '1000x60,0.5,0.1,1.5' \
 	-trim \
 	-bordercolor black -border 40x20 \
-	- size 600x240 \
+	-size 1024x512 \
   output.gif
 
 
-echo
-echo "Displaying image"
-echo
+#echo
+#echo "Displaying image"
+#echo
 
 display output.gif
 

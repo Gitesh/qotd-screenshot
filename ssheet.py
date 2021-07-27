@@ -99,7 +99,20 @@ wks.update_acell('f'+strQotdRandomID,qotdLastUsedCounter) #update counter
 
 print("Last used counter added to column f")
 
-qotdLastUsedDateNow = wks.updated #updated has been deprecated in google sheets v4
+#qotdLastUsedDateNow = wks.updated #updated has been deprecated in google sheets v4
+
+#---------------
+
+from datetime import datetime
+
+# Current date time in local system
+print(datetime.now())
+qotdLastUsedDateNow = str(datetime.now())
+
+
+#---------------
+
+
 
 print("New Last Used Date: " + str(qotdLastUsedDateNow))
 
@@ -120,7 +133,7 @@ qotdQuote = str(wks.acell('d'+strQotdRandomID).value)
 
 subprocess.call([qotdShell,qotdImageScript,qotdAuthor,qotdQuote])
 
-tweetme(qotdQuote, qotdHashtag, "output.gif")
+#tweetme(qotdQuote, qotdHashtag, "output.gif")
 
 
 #TODO
@@ -133,4 +146,5 @@ tweetme(qotdQuote, qotdHashtag, "output.gif")
 # [ ] 2015-05-24 Add hashtags to bash imagemagick script
 # [ ] 2015-05-24 Randomise viginette and tilt to predefined styles in bash imagemagick script
 # [ ] 2015-05-24 Code to truncate longer quotes taking into account hashtags
-# [ ] 2021-07-26 Move app and dependencies into a docker container
+# [ ] 2021-07-26 Move app and dependencies into a docker containerg
+# [ ] 2021-07-27 Tag authors with a twitter account in the tweet
