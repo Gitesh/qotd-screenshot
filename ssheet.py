@@ -22,13 +22,25 @@ def tweetme(text, hashtag, image):
 
 
 ##DEPENDENDCIES##
-#set up new service account credentials at console.developers.google.com
-#sudo apt-get install gspread
+#set up new service account credentials at http://console.developers.google.com
+#give the account access to two api scopes: drive and spreadsheet
+#set up a new twitter application at https://apps.twitter.com and note credentials
+#install the following local dependencies (ubuntu):
+#sudo apt-get install gspread 
 #sudo apt-get install pip
 #sudo pip install --upgrade oauth2client
+#sudo apt install imagemagick
 
-json_key = json.load(open('API Project-8bbb352bcc8c.json'))
-scope = ['https://spreadsheets.google.com/feeds']
+
+# json_key = json.load(open('API Project-8bbb352bcc8c.json'))
+
+json_key = json.load(open('qotd-17-6cfc9e0e9808.json'))
+
+#scope = ['https://spreadsheets.google.com/feeds']
+scope = [
+	'https://www.googleapis.com/auth/spreadsheets',
+	'https://www.googleapis.com/auth/drive'
+	]
 
 credentials = SignedJwtAssertionCredentials(json_key['client_email'], json_key['private_key'], scope)
 gc = gspread.authorize(credentials)
@@ -64,7 +76,7 @@ print wks.acell('g'+strQotdRandomID)  #Last used date
 print wks.acell('h'+strQotdRandomID)  #Validated status
 
 
-#Get the length of the hashtag below and truncate the quote length for the text ONLY (but not image)
+#Get the length of the hashtag below and truncate the quote length for the text ONLY (but not alter the image)
 qotdHashtag = wks.acell('e'+strQotdRandomID).value #Quote
 
 
@@ -74,17 +86,26 @@ qotdHashtag = wks.acell('e'+strQotdRandomID).value #Quote
 
 qotdLastUsedCounter = int(wks.acell('f'+strQotdRandomID).value)
 
+print ("Last Used Counter: " + str(qotdLastUsedCounter))
+
 qotdLastUsedCounter += 1
+
+print ("Last Used Counter+1: " + str(qotdLastUsedCounter))
 
 #qotdLastUsedCounterNow += int(qotdLastUsedCounter)
 
 #Update usage counter and date
 wks.update_acell('f'+strQotdRandomID,qotdLastUsedCounter) #update counter
 
-qotdLastUsedDateNow = wks.updated
+print("Last used counter added to column f")
+
+qotdLastUsedDateNow = wks.updated #updated has been deprecated in google sheets v4
+
+print("New Last Used Date: " + str(qotdLastUsedDateNow))
+
 wks.update_acell('g'+strQotdRandomID,qotdLastUsedDateNow) #update date
 
-
+print("Last Used Date Updated")
 
 
 
@@ -107,8 +128,9 @@ tweetme(qotdQuote, qotdHashtag, "output.gif")
 # [x] 2015-05-20 Fix: qotd_screenshot.sh: line 3: [: missing `]'  in bash script
 # [ ] 2015-05-20 Add tweet interface
 # [x] 2015-05-20 Create form to add new quotes
-# [ ] 2015-05-23 Import Twython and add function to take tweet text and gif and upload. Need to edit bash script so it doesn't display picture
+# [x] 2015-05-23 Import Twython and add function to take tweet text and gif and upload. Need to edit bash script so it doesn't display picture 2021-07-26 done
 # [ ] 2015-05-24 Change font in bash imagemagick script
 # [ ] 2015-05-24 Add hashtags to bash imagemagick script
 # [ ] 2015-05-24 Randomise viginette and tilt to predefined styles in bash imagemagick script
-# [ ] 2015-05-24 Code to truncate longer quotes taking into acount hashtags
+# [ ] 2015-05-24 Code to truncate longer quotes taking into account hashtags
+# [ ] 2021-07-26 Move app and dependencies into a docker container
