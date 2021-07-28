@@ -78,6 +78,7 @@ print wks.acell('h'+strQotdRandomID)  #Validated status
 
 #Get the length of the hashtag below and truncate the quote length for the text ONLY (but not alter the image)
 qotdHashtag = wks.acell('e'+strQotdRandomID).value #Quote
+qotdHashtag = str(" " + qotdHashtag) #add a space before the quote end and hashtag, looks neater, 
 
 
 
@@ -100,6 +101,8 @@ wks.update_acell('f'+strQotdRandomID,qotdLastUsedCounter) #update counter
 print("Last used counter added to column f")
 
 #qotdLastUsedDateNow = wks.updated #updated has been deprecated in google sheets v4
+#print("DEPRECATED SPREADSHEET UPDATE VALE: " + str(wks.updated))
+
 
 #---------------
 
@@ -133,7 +136,7 @@ qotdQuote = str(wks.acell('d'+strQotdRandomID).value)
 
 subprocess.call([qotdShell,qotdImageScript,qotdAuthor,qotdQuote])
 
-#tweetme(qotdQuote, qotdHashtag, "output.gif")
+tweetme(qotdQuote, qotdHashtag, "output.gif")
 
 
 #TODO
