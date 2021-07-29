@@ -4,7 +4,8 @@ import json
 import gspread
 import subprocess
 from random import randint
-from oauth2client.client import SignedJwtAssertionCredentials
+#from oauth2client.client import SignedJwtAssertionCredentials
+from google.oauth2.service_account import Credentials
 from twython import Twython
 from token917354 import *
 
@@ -37,12 +38,15 @@ def tweetme(text, hashtag, image):
 json_key = json.load(open('qotd-17-6cfc9e0e9808.json'))
 
 #scope = ['https://spreadsheets.google.com/feeds']
-scope = [
+scopes = [
 	'https://www.googleapis.com/auth/spreadsheets',
 	'https://www.googleapis.com/auth/drive'
 	]
 
-credentials = SignedJwtAssertionCredentials(json_key['client_email'], json_key['private_key'], scope)
+#credentials = SignedJwtAssertionCredentials(json_key['client_email'], json_key['private_key'], scope)
+#gc = gspread.authorize(credentials)
+
+credentials = Credentials.from_service_account_file('qotd-17-6cfc9e0e9808.json', scopes=scopes)
 gc = gspread.authorize(credentials)
 
 wks = gc.open("qotd_source").sheet1
@@ -66,14 +70,14 @@ qotdRandomID = randint(2,qotdQotdIDLength)
 
 strQotdRandomID = str(qotdRandomID)
 
-print wks.acell('a'+strQotdRandomID)  #TimeStamp
-print wks.acell('b'+strQotdRandomID)  #ID
-print wks.acell('c'+strQotdRandomID)  #Author
-print wks.acell('d'+strQotdRandomID)  #Quote
-print wks.acell('e'+strQotdRandomID)  #Hashtag
-print wks.acell('f'+strQotdRandomID)  #Usage counter
-print wks.acell('g'+strQotdRandomID)  #Last used date
-print wks.acell('h'+strQotdRandomID)  #Validated status
+print (wks.acell('a'+strQotdRandomID))  #TimeStamp
+print (wks.acell('b'+strQotdRandomID))  #ID
+print (wks.acell('c'+strQotdRandomID))  #Author
+print (wks.acell('d'+strQotdRandomID))  #Quote
+print (wks.acell('e'+strQotdRandomID))  #Hashtag
+print (wks.acell('f'+strQotdRandomID))  #Usage counter
+print (wks.acell('g'+strQotdRandomID))  #Last used date
+print (wks.acell('h'+strQotdRandomID))  #Validated status
 
 
 #Get the length of the hashtag below and truncate the quote length for the text ONLY (but not alter the image)

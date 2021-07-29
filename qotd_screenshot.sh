@@ -53,7 +53,7 @@ TEXT=$2
 
 QUOTE_FONT=/usr/share/fonts/truetype/tlwg/Purisa-BoldOblique.ttf
 AUTHOR_FONT=/usr/share/fonts/truetype/noto/NotoMono-Regular.ttf
-TWITTER_HANDLE_FONT=/usr/share/fonts/truetype/droid/DejaVuSans-Bold.ttf
+TWITTER_HANDLE_FONT=/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf
 
 QUOTE_COLOUR=#F1E577
 AUTHOR_COLOUR=#76725F
