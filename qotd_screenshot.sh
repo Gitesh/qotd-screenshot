@@ -50,9 +50,11 @@ fi
 
 AUTHOR="-- "$1
 TEXT=$2
+
 QUOTE_FONT=/usr/share/fonts/truetype/tlwg/Purisa-BoldOblique.ttf
-AUTHOR_FONT=/usr/share/fonts/truetype/tlwg/Purisa-BoldOblique.ttf
-TWITTER_HANDLE_FONT=/usr/share/fonts/truetype/tlwg/Waree-Bold.ttf
+AUTHOR_FONT=/usr/share/fonts/truetype/noto/NotoMono-Regular.ttf
+TWITTER_HANDLE_FONT=/usr/share/fonts/truetype/droid/DejaVuSans-Bold.ttf
+
 QUOTE_COLOUR=#F1E577
 AUTHOR_COLOUR=#76725F
 TWITTER_HANDLE_COLOUR=#C71959
@@ -93,6 +95,6 @@ output.gif
 #echo
 #echo "Displaying image"
 #echo
-#display output.gif
+display output.gif
 
 echo "--quote image creation completed--"
