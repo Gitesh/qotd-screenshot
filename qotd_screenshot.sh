@@ -52,6 +52,7 @@ AUTHOR="-- "$1
 TEXT=$2
 
 QUOTE_FONT=/usr/share/fonts/truetype/tlwg/Purisa-BoldOblique.ttf
+#QUOTE_FONT=/usr/share/fonts/truetype/noto/NotoMono-Regular.ttf
 AUTHOR_FONT=/usr/share/fonts/truetype/noto/NotoMono-Regular.ttf
 TWITTER_HANDLE_FONT=/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf
 
@@ -63,16 +64,25 @@ TWITTER_HANDLE_COLOUR=#C71959
 #echo $AUTHOR
 #echo $1
 
-
+echo "--creating image from quote --"
 
 #Twitter reccomended image size is 1024x512 
+
+#convert -size 1024x512 -fill dodgerblue -font $QUOTE_FONT -background black -pointsize 72 \
+#		-gravity center label:"\" $TEXT \"" -bordercolor black -border 30x30 \
+#		\( +clone -blur 0x25 -level 0%,50% \) \
+ #       -compose screen -composite test.gif
+
+
+
+
 
 convert -size 1024x512 \
 	-background black \
         -font $QUOTE_FONT \
         -fill $QUOTE_COLOUR \
         -gravity center caption:"\" $TEXT \"\n\n" \
-  -background black \
+    -background black \
 	      -pointsize 30 \
 				-font $AUTHOR_FONT \
 				-fill $AUTHOR_COLOUR \
@@ -82,19 +92,27 @@ convert -size 1024x512 \
 				-gravity southeast \
 				-font $TWITTER_HANDLE_FONT \
 				-fill $TWITTER_HANDLE_COLOUR -annotate 0 '\n\n\n\@QOTD_17' \
-  -distort Perspective '0,0 0,0   213,0 213,0   213,160 213,140   0,160 0,160' \
-  -vignette '1000x60,0.5,0.1,1.5' \
+    -distort Perspective '0,0 0,0   213,0 213,0   213,160 213,140   0,160 0,160' \
+    -vignette '1000x60,0.5,0.1,1.5' \
 	-trim \
 	-bordercolor black -border 40x20 \
-  -crop 1024x512 +repage \
+    -crop 1024x512 +repage \
 output.gif
 
+#--detect image--
+#  error=`identify -regard-warnings output.gif 2>&1 >/dev/null;`
+#  if [ $? -eq 0 ]; then
+#    echo "The image is good"
+#  else
+#    echo "The image is corrupt or unknown format"
+#    echo "$error"
+#  fi
 
 
 
 #echo
 #echo "Displaying image"
 #echo
-display output.gif
+#display output.gif
 
 echo "--quote image creation completed--"
