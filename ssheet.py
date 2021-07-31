@@ -49,6 +49,8 @@ scopes = [
 credentials = Credentials.from_service_account_file('qotd-17-6cfc9e0e9808.json', scopes=scopes)
 gc = gspread.authorize(credentials)
 
+print("--Connecting to quotes database--")
+
 wks = gc.open("qotd_source").sheet1
 
 
@@ -140,7 +142,7 @@ qotdQuote = str(wks.acell('d'+strQotdRandomID).value)
 
 subprocess.call([qotdShell,qotdImageScript,qotdAuthor,qotdQuote])
 
-tweetme(qotdQuote, qotdHashtag, "output.gif")
+tweetme(qotdQuote, qotdHashtag, "output.png")
 
 
 #TODO
