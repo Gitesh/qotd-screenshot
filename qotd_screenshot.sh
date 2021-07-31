@@ -68,36 +68,74 @@ echo "--creating image from quote --"
 
 #Twitter reccomended image size is 1024x512 
 
-#convert -size 1024x512 -fill dodgerblue -font $QUOTE_FONT -background black -pointsize 72 \
-#		-gravity center label:"\" $TEXT \"" -bordercolor black -border 30x30 \
-#		\( +clone -blur 0x25 -level 0%,50% \) \
- #       -compose screen -composite test.gif
+#--FLAT SYNTHWAVE--#
+convert -size 1024x512 -fill dodgerblue -font $QUOTE_FONT -background black \
+		       -gravity center caption:"\" $TEXT \"" \
+		       \( +clone -blur 0x25 -level 0%,50% \) \
+               -compose screen -composite \
+	    -pointsize 30 \
+		       -font $AUTHOR_FONT \
+		       -fill $AUTHOR_COLOUR \
+			   -gravity southwest \
+			   -annotate +1+1 "$AUTHOR" \
+		-gravity southeast \
+			   -font $TWITTER_HANDLE_FONT \
+			   -fill $TWITTER_HANDLE_COLOUR -annotate 0 '\n\n\n\@QOTD_17'\
+	-bordercolor black -border 40x40 \
+output.png
 
 
 
 
 
-convert -size 1024x512 \
-	-background black \
-        -font $QUOTE_FONT \
-        -fill $QUOTE_COLOUR \
-        -gravity center caption:"\" $TEXT \"\n\n" \
-    -background black \
-	      -pointsize 30 \
-				-font $AUTHOR_FONT \
-				-fill $AUTHOR_COLOUR \
-				-gravity southeast \
-				-annotate +40+40 "$AUTHOR" \
-	-background black \
-				-gravity southeast \
-				-font $TWITTER_HANDLE_FONT \
-				-fill $TWITTER_HANDLE_COLOUR -annotate 0 '\n\n\n\@QOTD_17' \
-    -distort Perspective '0,0 0,0   213,0 213,0   213,160 213,140   0,160 0,160' \
-    -vignette '1000x60,0.5,0.1,1.5' \
-	-trim \
-	-bordercolor black -border 40x20 \
-    -crop 1024x512 +repage \
-output.gif
+
+#--DISTORTED SYNTHWAVE--#
+
+# convert -size 1024x512 -fill dodgerblue -font $QUOTE_FONT -background black \
+# 		       -gravity center caption:"\" $TEXT \"" \
+# 		       \( +clone -blur 0x25 -level 0%,50% \) \
+#                -compose screen -composite \
+# 	    -pointsize 30 \
+# 		       -font $AUTHOR_FONT \
+# 		       -fill $AUTHOR_COLOUR \
+# 			   -gravity southwest \
+# 			   -annotate +1+1 "$AUTHOR" \
+# 		-gravity southeast \
+# 			   -font $TWITTER_HANDLE_FONT \
+# 			   -fill $TWITTER_HANDLE_COLOUR -annotate 0 '\n\n\n\@QOTD_17'\
+# 	-bordercolor black -border 40x40 \
+#     -distort Perspective '0,0 0,0   213,0 213,0   213,160 213,140   0,140 0,140' -trim \
+# 		-bordercolor black -border 40x40 \
+# 	    +repage \
+# output.png
+
+
+
+#---Traditional clean yellow, tilted----
+
+# convert -size 1024x512 \
+# 	-background black \
+#         -font $QUOTE_FONT \
+#         -fill $QUOTE_COLOUR \
+#         -gravity center caption:"\" $TEXT \"\n\n" \
+#     -background black \
+# 	      -pointsize 30 \
+# 				-font $AUTHOR_FONT \
+# 				-fill $AUTHOR_COLOUR \
+# 				-gravity southeast \
+# 				-annotate +40+40 "$AUTHOR" \
+# 	-background black \
+# 				-gravity southeast \
+# 				-font $TWITTER_HANDLE_FONT \
+# 				-fill $TWITTER_HANDLE_COLOUR -annotate 0 '\n\n\n\@QOTD_17' \
+#     -distort Perspective '0,0 0,0   213,0 213,0   213,160 213,140   0,160 0,160' \
+#     -vignette '1000x60,0.5,0.1,1.5' \
+# 	-trim \
+# 	-bordercolor black -border 40x20 \
+#   -crop 1024x512 +repage \
+# output.gif
+
+
 
 #--detect image--
 #  error=`identify -regard-warnings output.gif 2>&1 >/dev/null;`
@@ -113,6 +151,6 @@ output.gif
 #echo
 #echo "Displaying image"
 #echo
-#display output.gif
+#display output.png
 
 echo "--quote image creation completed--"
