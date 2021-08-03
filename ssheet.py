@@ -1,10 +1,37 @@
+#   This work is part of the qotd-screenshot program, see https://twitter.com/qotd_17
+#   The project source can be found at https://github.com/Gitesh/qotd-screenshot
+#   Copyright 2015 Gitesh Khodiyar
+
+#   Licensed under the Apache License, Version 2.0 (the "License");
+#   you may not use this file except in compliance with the License.
+#   You may obtain a copy of the License at
+
+#       http://www.apache.org/licenses/LICENSE-2.0
+
+#   Unless required by applicable law or agreed to in writing, software
+#   distributed under the License is distributed on an "AS IS" BASIS,
+#   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#   See the License for the specific language governing permissions and
+#   limitations under the License.
+
+##DEPENDENDCIES##
+#set up new service account credentials at http://console.developers.google.com
+#give the account access to two api scopes: 1. Drive and 2. Spreadsheet
+#set up a new twitter application at https://apps.twitter.com and note credentials
+#install the following local dependencies:
+#sudo apt-get install gspread 
+#sudo apt-get install pip
+#sudo pip install --upgrade oauth2client
+#sudo apt install imagemagick
+
+
+
 #!/usr/bin/python
 
 import json
 import gspread
 import subprocess
 from random import randint
-#from oauth2client.client import SignedJwtAssertionCredentials
 from google.oauth2.service_account import Credentials
 from pyasn1.type.univ import Null
 from twython import Twython
@@ -22,30 +49,13 @@ def tweetme(text, hashtag, image):
     return
 
 
-
-##DEPENDENDCIES##
-#set up new service account credentials at http://console.developers.google.com
-#give the account access to two api scopes: drive and spreadsheet
-#set up a new twitter application at https://apps.twitter.com and note credentials
-#install the following local dependencies (ubuntu):
-#sudo apt-get install gspread 
-#sudo apt-get install pip
-#sudo pip install --upgrade oauth2client
-#sudo apt install imagemagick
-
-
-# json_key = json.load(open('API Project-8bbb352bcc8c.json'))
-
 json_key = json.load(open('qotd-17-6cfc9e0e9808.json'))
 
-#scope = ['https://spreadsheets.google.com/feeds']
 scopes = [
 	'https://www.googleapis.com/auth/spreadsheets',
 	'https://www.googleapis.com/auth/drive'
 	]
 
-#credentials = SignedJwtAssertionCredentials(json_key['client_email'], json_key['private_key'], scope)
-#gc = gspread.authorize(credentials)
 
 credentials = Credentials.from_service_account_file('qotd-17-6cfc9e0e9808.json', scopes=scopes)
 gc = gspread.authorize(credentials)
@@ -57,14 +67,10 @@ wks = gc.open("qotd_source").sheet1
 
 #UPDATE A CELL
 #wks.update_acell('B2', "it's down there somewhere, let me take another look.")
-
 # Fetch a cell range
 #cell_list = wks.range('A1:B7')
-
 #print cell_list
-
 #print wks.acell("a1").value
-
 #print wks.row_count
 
 qotdQotdIDLength = len(wks.col_values(1))
@@ -73,37 +79,37 @@ qotdRandomID = randint(2,qotdQotdIDLength)
 
 strQotdRandomID = str(qotdRandomID)
 
-#-----------check the validated status--------------------------
+#--check that the validated status of the quote is set to 1--
 
 intValidatedStatus = Null
 
-intValidatedStatus = int(wks.acell('h'+strQotdRandomID).value)  #Read Validated status column from google sheet
+intValidatedStatus = int(wks.acell('h'+strQotdRandomID).value)  #Read the Validated Status column from a random row 
 
-print("----------------validatedStatusRow " + strQotdRandomID)
-print("----------------validatedStatus " + str(intValidatedStatus))
+print("----Random row selected: " + strQotdRandomID)
+print("----Random row validated status is: " + str(intValidatedStatus))
 
-while intValidatedStatus < 1:
+while intValidatedStatus < 1:     # 0 is do not use the quote, 1 is use the row
   if intValidatedStatus == 0:
-    print ("----validated 00000000000000000000")
-    print("-----re reading " + (str(intValidatedStatus))) #re read
-    qotdRandomID = randint(2,qotdQotdIDLength)
+    print ("----Oh no! the selected row is set to 0 ")
+    print("-----So selecting another random row..." + (str(intValidatedStatus)))
+    qotdRandomID = randint(2,qotdQotdIDLength)    #Start at row 2 because row 1 is the heading
     strQotdRandomID = str(qotdRandomID)
-    strValidatedStatus = wks.acell('h'+strQotdRandomID).value  #Read Validated status column from google sheet  
+    strValidatedStatus = wks.acell('h'+strQotdRandomID).value  #Read the Validated Status column from a random row again 
     intValidatedStatus = (int(str(strValidatedStatus)))
-    print("new validated status " + (str(strValidatedStatus)))
+    print("----New validated status: " + (str(strValidatedStatus)))
     continue
-print ("eXited continutes")
+print ("--A valid row was selected so exiting selection loop...")
 
 #----------validated status checked and a random valid quote selected
 
-print (wks.acell('a'+strQotdRandomID))  #TimeStamp
-print (wks.acell('b'+strQotdRandomID))  #ID
-print (wks.acell('c'+strQotdRandomID))  #Author
-print (wks.acell('d'+strQotdRandomID))  #Quote
-print (wks.acell('e'+strQotdRandomID))  #Hashtag
-print (wks.acell('f'+strQotdRandomID))  #Usage counter
-print (wks.acell('g'+strQotdRandomID))  #Last used date
-print (wks.acell('h'+strQotdRandomID))  #Validated status
+# print (wks.acell('a'+strQotdRandomID))  #TimeStamp
+# print (wks.acell('b'+strQotdRandomID))  #ID
+# print (wks.acell('c'+strQotdRandomID))  #Author
+# print (wks.acell('d'+strQotdRandomID))  #Quote
+# print (wks.acell('e'+strQotdRandomID))  #Hashtag
+# print (wks.acell('f'+strQotdRandomID))  #Usage counter
+# print (wks.acell('g'+strQotdRandomID))  #Last used date
+# print (wks.acell('h'+strQotdRandomID))  #Validated status
 
 
 #Get the length of the hashtag below and truncate the quote length for the text ONLY (but not alter the image)
@@ -117,18 +123,18 @@ qotdHashtag = str(" " + qotdHashtag) #add a space before the quote end and hasht
 
 qotdLastUsedCounter = int(wks.acell('f'+strQotdRandomID).value)
 
-print ("Last Used Counter: " + str(qotdLastUsedCounter))
+print ("----Last Used Counter: " + str(qotdLastUsedCounter))
 
 qotdLastUsedCounter += 1
 
-print ("Last Used Counter+1: " + str(qotdLastUsedCounter))
+print ("----Last Used Counter+1: " + str(qotdLastUsedCounter))
 
 #qotdLastUsedCounterNow += int(qotdLastUsedCounter)
 
 #Update usage counter and date
 wks.update_acell('f'+strQotdRandomID,qotdLastUsedCounter) #update counter
 
-print("Last used counter added to column f")
+print("----Last used counter incremented and added to selected row")
 
 #qotdLastUsedDateNow = wks.updated #updated has been deprecated in google sheets v4
 #print("DEPRECATED SPREADSHEET UPDATE VALE: " + str(wks.updated))
@@ -139,19 +145,16 @@ print("Last used counter added to column f")
 from datetime import datetime
 
 # Current date time in local system
-print(datetime.now())
+
 qotdLastUsedDateNow = str(datetime.now())
 
+print("--New Last Used date: " + str(qotdLastUsedDateNow))
 
 #---------------
 
-
-
-print("New Last Used Date: " + str(qotdLastUsedDateNow))
-
 wks.update_acell('g'+strQotdRandomID,qotdLastUsedDateNow) #update date
 
-print("Last Used Date Updated")
+print("--Last Used Date column updated")
 
 
 
@@ -175,9 +178,9 @@ subprocess.call([qotdShell,qotdImageScript,qotdAuthor,qotdQuote])
 # [ ] 2015-05-20 Add tweet interface
 # [x] 2015-05-20 Create form to add new quotes
 # [x] 2015-05-23 Import Twython and add function to take tweet text and gif and upload. Need to edit bash script so it doesn't display picture 2021-07-26 done
-# [ ] 2015-05-24 Change font in bash imagemagick script
-# [ ] 2015-05-24 Add hashtags to bash imagemagick script
-# [ ] 2015-05-24 Randomise viginette and tilt to predefined styles in bash imagemagick script
+# [x] 2015-05-24 Change font in bash imagemagick script
+# [-] 2015-05-24 Add hashtags to bash imagemagick script
+# [ ] 2015-05-24 Randomise theme to predefined styles in bash imagemagick script
 # [ ] 2015-05-24 Code to truncate longer quotes taking into account hashtags
-# [ ] 2021-07-26 Move app and dependencies into a docker containerg
-# [ ] 2021-07-27 Tag authors with a twitter account in the tweet
+# [ ] 2021-07-26 Move app and dependencies into a docker container
+# [x] 2021-07-27 Tag authors with a twitter account in the tweet
