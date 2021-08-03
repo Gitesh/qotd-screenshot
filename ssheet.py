@@ -6,6 +6,7 @@ import subprocess
 from random import randint
 #from oauth2client.client import SignedJwtAssertionCredentials
 from google.oauth2.service_account import Credentials
+from pyasn1.type.univ import Null
 from twython import Twython
 from token917354 import *
 
@@ -71,6 +72,29 @@ qotdQotdIDLength = len(wks.col_values(1))
 qotdRandomID = randint(2,qotdQotdIDLength)
 
 strQotdRandomID = str(qotdRandomID)
+
+#-----------check the validated status--------------------------
+
+intValidatedStatus = Null
+
+intValidatedStatus = int(wks.acell('h'+strQotdRandomID).value)  #Read Validated status column from google sheet
+
+print("----------------validatedStatusRow " + strQotdRandomID)
+print("----------------validatedStatus " + str(intValidatedStatus))
+
+while intValidatedStatus < 1:
+  if intValidatedStatus == 0:
+    print ("----validated 00000000000000000000")
+    print("-----re reading " + (str(intValidatedStatus))) #re read
+    qotdRandomID = randint(2,qotdQotdIDLength)
+    strQotdRandomID = str(qotdRandomID)
+    strValidatedStatus = wks.acell('h'+strQotdRandomID).value  #Read Validated status column from google sheet  
+    intValidatedStatus = (int(str(strValidatedStatus)))
+    print("new validated status " + (str(strValidatedStatus)))
+    continue
+print ("eXited continutes")
+
+#----------validated status checked and a random valid quote selected
 
 print (wks.acell('a'+strQotdRandomID))  #TimeStamp
 print (wks.acell('b'+strQotdRandomID))  #ID
@@ -142,7 +166,7 @@ qotdQuote = str(wks.acell('d'+strQotdRandomID).value)
 
 subprocess.call([qotdShell,qotdImageScript,qotdAuthor,qotdQuote])
 
-tweetme(qotdQuote, qotdHashtag, "output.png")
+#tweetme(qotdQuote, qotdHashtag, "output.png")
 
 
 #TODO
