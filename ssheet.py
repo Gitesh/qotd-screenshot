@@ -15,14 +15,14 @@
 #   limitations under the License.
 
 ##DEPENDENDCIES##
-#set up new service account credentials at http://console.developers.google.com
-#give the account access to two api scopes: 1. Drive and 2. Spreadsheet
-#set up a new twitter application at https://apps.twitter.com and note credentials
-#install the following local dependencies:
-#sudo apt-get install gspread 
-#sudo apt-get install pip
-#sudo pip install --upgrade oauth2client
-#sudo apt install imagemagick
+# set up new service account credentials at http://console.developers.google.com
+# give the account access to two api scopes: 1. Drive and 2. Spreadsheet
+# set up a new twitter application at https://apps.twitter.com and note credentials
+# install the following local dependencies:
+# sudo apt-get install gspread 
+# sudo apt-get install pip
+# sudo pip install --upgrade oauth2client
+# sudo apt install imagemagick
 
 
 
@@ -36,6 +36,7 @@ from google.oauth2.service_account import Credentials
 from pyasn1.type.univ import Null
 from twython import Twython
 from token917354 import *
+from datetime import datetime
 
 
 def tweetme(text, hashtag, image):
@@ -60,7 +61,11 @@ scopes = [
 credentials = Credentials.from_service_account_file('qotd-17-6cfc9e0e9808.json', scopes=scopes)
 gc = gspread.authorize(credentials)
 
-print("--Connecting to quotes database--")
+print ("\n")
+print ("_____________________________________________")
+print (str(datetime.now()) + " Starting")
+print ("_____________________________________________")
+print("--Connecting to quotes database")
 
 wks = gc.open("qotd_source").sheet1
 
@@ -98,7 +103,7 @@ while intValidatedStatus < 1:     # 0 is do not use the quote, 1 is use the row
     intValidatedStatus = (int(str(strValidatedStatus)))
     print("----New validated status: " + (str(strValidatedStatus)))
     continue
-print ("--A valid row was selected so exiting selection loop...")
+print ("--A valid row was selected so exiting selection loop")
 
 #----------validated status checked and a random valid quote selected
 
@@ -123,26 +128,24 @@ qotdHashtag = str(" " + qotdHashtag) #add a space before the quote end and hasht
 
 qotdLastUsedCounter = int(wks.acell('f'+strQotdRandomID).value)
 
-print ("----Last Used Counter: " + str(qotdLastUsedCounter))
+print ("----Current usage counter: " + str(qotdLastUsedCounter))
 
 qotdLastUsedCounter += 1
 
-print ("----Last Used Counter+1: " + str(qotdLastUsedCounter))
+print ("----Increasing usage counter+1: " + str(qotdLastUsedCounter))
 
 #qotdLastUsedCounterNow += int(qotdLastUsedCounter)
 
 #Update usage counter and date
 wks.update_acell('f'+strQotdRandomID,qotdLastUsedCounter) #update counter
 
-print("----Last used counter incremented and added to selected row")
+print("----Last used counter incremented and written to selected row")
 
 #qotdLastUsedDateNow = wks.updated #updated has been deprecated in google sheets v4
 #print("DEPRECATED SPREADSHEET UPDATE VALE: " + str(wks.updated))
 
 
 #---------------
-
-from datetime import datetime
 
 # Current date time in local system
 
@@ -154,7 +157,7 @@ print("--New Last Used date: " + str(qotdLastUsedDateNow))
 
 wks.update_acell('g'+strQotdRandomID,qotdLastUsedDateNow) #update date
 
-print("--Last Used Date column updated")
+print("----Last Used Date updated")
 
 
 
@@ -171,6 +174,10 @@ subprocess.call([qotdShell,qotdImageScript,qotdAuthor,qotdQuote])
 
 #tweetme(qotdQuote, qotdHashtag, "output.png")
 
+print ("_____________________________________________")
+print (str(datetime.now()) + " Finished.")
+print ("_____________________________________________")
+print ("\n\n")
 
 #TODO
 # [ ] 2015-05-20 Replace Random quote code with an algorithm using 'qotd_usage_counter' and 'qotd_last_used_date' to determine which qoute to use next

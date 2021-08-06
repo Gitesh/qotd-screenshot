@@ -41,7 +41,7 @@ TWITTER_HANDLE_COLOUR=#C71959
 #echo $AUTHOR
 #echo $1
 
-echo "--creating image from quote --"
+echo "--Creating image from quote"
 
 #Twitter reccomended image size is 1024x512 
 
@@ -123,4 +123,4 @@ output.png
 #echo
 #display output.png
 
-echo "--quote image creation completed--"
+echo "--Image created"
