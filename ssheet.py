@@ -95,15 +95,15 @@ print("----Random row validated status is: " + str(intValidatedStatus))
 
 while intValidatedStatus < 1:     # 0 is do not use the quote, 1 is use the row
   if intValidatedStatus == 0:
-    print ("----Oh no! the selected row is set to 0 ")
-    print("-----So selecting another random row..." + (str(intValidatedStatus)))
+    print ("------Oh no! the selected row is set to "+ (str(intValidatedStatus)))
+    print ("------So selecting another random row..." )
     qotdRandomID = randint(2,qotdQotdIDLength)    #Start at row 2 because row 1 is the heading
     strQotdRandomID = str(qotdRandomID)
     strValidatedStatus = wks.acell('h'+strQotdRandomID).value  #Read the Validated Status column from a random row again 
     intValidatedStatus = (int(str(strValidatedStatus)))
     print("----New validated status: " + (str(strValidatedStatus)))
     continue
-print ("--A valid row was selected so exiting selection loop")
+print ("--A valid row was selected, selection loop exited")
 
 #----------validated status checked and a random valid quote selected
 
@@ -157,7 +157,7 @@ print("--New Last Used date: " + str(qotdLastUsedDateNow))
 
 wks.update_acell('g'+strQotdRandomID,qotdLastUsedDateNow) #update date
 
-print("----Last Used Date updated")
+print("----Last Used Date updated to row")
 
 
 
@@ -173,6 +173,8 @@ qotdQuote = str(wks.acell('d'+strQotdRandomID).value)
 subprocess.call([qotdShell,qotdImageScript,qotdAuthor,qotdQuote])
 
 #tweetme(qotdQuote, qotdHashtag, "output.png")
+print("--Tweet published")
+
 
 print ("_____________________________________________")
 print (str(datetime.now()) + " Finished.")

@@ -123,4 +123,4 @@ output.png
 #echo
 #display output.png
 
-echo "--Image created"
+echo "----Image created"
