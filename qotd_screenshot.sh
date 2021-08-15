@@ -93,28 +93,44 @@ echo "--Creating image from quote"
 # ---THEME: DEFAULT CLEAN YELLOW TILTED---
 # ----------------------------------------
 
-convert -size 1024x512 \
-	-background black \
-        -font $QUOTE_FONT \
-        -fill $QUOTE_COLOUR \
-        -gravity center caption:"\" $TEXT \"\n\n" \
-    -background black \
-	      -pointsize 30 \
-				-font $AUTHOR_FONT \
-				-fill $AUTHOR_COLOUR \
-				-gravity southeast \
-				-annotate +40+40 "$AUTHOR" \
-	-background black \
-				-gravity southeast \
-				-font $TWITTER_HANDLE_FONT \
-				-fill $TWITTER_HANDLE_COLOUR -annotate 0 '\n\n\n\@QOTD_17' \
-    -distort Perspective '0,0 0,0   213,0 213,0   213,160 213,140   0,160 0,160' \
-    -vignette '1000x60,0.5,0.1,1.5' \
-	-trim \
-	-bordercolor black -border 40x20 \
-  -crop 1024x512 +repage \
-output.png
+# convert -size 1024x512 \
+# 	-background black \
+#         -font $QUOTE_FONT \
+#         -fill $QUOTE_COLOUR \
+#         -gravity center caption:"\" $TEXT \"\n\n" \
+#     -background black \
+# 	      -pointsize 30 \
+# 				-font $AUTHOR_FONT \
+# 				-fill $AUTHOR_COLOUR \
+# 				-gravity southeast \
+# 				-annotate +40+40 "$AUTHOR" \
+# 	-background black \
+# 				-gravity southeast \
+# 				-font $TWITTER_HANDLE_FONT \
+# 				-fill $TWITTER_HANDLE_COLOUR -annotate 0 '\n\n\n\@QOTD_17' \
+#     -distort Perspective '0,0 0,0   213,0 213,0   213,160 213,140   0,160 0,160' \
+#     -vignette '1000x60,0.5,0.1,1.5' \
+# 	-trim \
+# 	-bordercolor black -border 40x20 \
+#   -crop 1024x512 +repage \
+# output.png
 
+# ----------------------------------------
+# ---THEME: DEFAULT CLEAN YELLOW FLAT---
+# ----------------------------------------
+
+convert -size 1024x512 -fill $QUOTE_COLOUR -font $QUOTE_FONT -background black \
+		       -gravity center caption:"\" $TEXT \"" \
+	    -pointsize 30 \
+		       -font $AUTHOR_FONT \
+		       -fill $AUTHOR_COLOUR \
+			   -gravity southwest \
+			   -annotate +1+1 "$AUTHOR" \
+		-gravity southeast \
+			   -font $TWITTER_HANDLE_FONT \
+			   -fill $TWITTER_HANDLE_COLOUR -annotate 0 '\n\n\n\@QOTD_17'\
+	    -bordercolor black -border 40x40 \
+output.png
 
 
 
