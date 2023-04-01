@@ -53,6 +53,8 @@ Example:
 | 12/06/2015 16:20:32 | 14 | Oliver Wendell Holmes   | A child's education should begin at least 100 years before he is born.                                                 | #education #poverty        | 3             | 2015-05-21T00:34:06.275Z | 1                |
 | 13/06/2015 16:20:32 | 15 | William James           | A great many people think they are thinking when they are merely rearranging their prejudices.                         | #pmChat #stakeholders      | 0             | 0                        | 1                |
 
+(!) Note: If you subsequently append rows manually to this table, gsheets will continue to instert rows at it's last location rather than at the end of the new rows as expected. This is because gsheets is designed to INSERT data - so it doesn't accidentally overwrite your data. To get around this, you should manually INSERT data above the last row, then the form entered data will continue to be added at the end. 
+
 You'll need to add an AppsScript to spreadsheet to auto populate ID, Usage Counter, Last Published Date,  Validated Status rows with default values. The code should be triggered on form submission.
 
     function onFormSubmit(e) {
